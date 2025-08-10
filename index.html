@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GenomeHouse - Modular Bioinformatics Toolkit</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -37,10 +38,14 @@
             background-image: radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.1) 1px, transparent 0);
             background-size: 20px 20px;
         }
+        /* Responsive adjustments for navigation */
+        @media (max-width: 767px) {
+            .md\:flex { display: none !important; }
+            .md\:hidden { display: flex !important; }
+        }
     </style>
 </head>
 <body class="bg-white text-gray-900">
-   
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -55,18 +60,40 @@
                     <a href="#examples" class="text-gray-700 hover:text-genome-blue transition-colors">Examples</a>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="https://pypi.org/project/genomehouse/" target="_blank" class="bg-genome-blue text-white px-4 py-2 rounded-lg hover:bg-genome-dark transition-colors">
-                        PyPI
+                    <a href="https://pypi.org/project/genomehouse/" target="_blank" class="bg-genome-blue text-white px-4 py-2 rounded-lg hover:bg-genome-dark transition-colors flex items-center space-x-1">
+                        <i data-lucide="package" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">PyPI</span>
                     </a>
-                    <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-                        GitHub
+                    <a href="https://github.com/GenomeHouse/GenomeHouse-1.1" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center space-x-1">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">GitHub</span>
                     </a>
                 </div>
+                <button class="md:hidden p-2 rounded-md text-gray-600 hover:text-genome-blue hover:bg-gray-100 transition-colors" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
             </div>
         </div>
     </nav>
+    <div id="main-nav-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')"></div>
+    <div id="main-nav-mobile-menu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-semibold text-gray-900">Navigation</h2>
+                <button class="p-2 rounded-md text-gray-600 hover:text-genome-blue hover:bg-gray-100 transition-colors" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="space-y-1">
+                <a href="#features" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')">Features</a>
+                <a href="#installation" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')">Installation</a>
+                <a href="documentation.html" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')">Documentation</a>
+                <a href="#examples" class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md" onclick="toggleMobileMenu('main-nav-mobile-menu', 'main-nav-overlay')">Examples</a>
+            </div>
+        </div>
+    </div>
 
-     <!-- Hero Section -->
+
     <section class="pt-20 pb-16 hero-pattern">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -83,16 +110,13 @@
                     Modular bioinformatics toolkit for sequence analysis, parsing, ML, and visualization
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <div class="bg-gray-900 text-white px-6 py-3 rounded-lg font-mono text-sm">
-                        pip install genomehouse
-                    </div>
-                    <button onclick="navigator.clipboard.writeText('pip install genomehouse')" class="text-genome-blue hover:text-genome-dark transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
+                    <div class="bg-gray-900 text-white px-6 py-3 rounded-lg font-mono text-sm">pip install genomehouse</div>
+                    <button onclick="copyToClipboard('pip install genomehouse', 'hero-copy')" class="text-genome-blue hover:text-genome-dark transition-colors relative">
+                        <i data-lucide="copy" class="w-5 h-5"></i>
+                        <span id="hero-copy-status" class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs bg-gray-800 text-white px-2 py-1 rounded hidden"></span>
                     </button>
                 </div>
-                <div class="mt-8 flex justify-center space-x-8 text-sm text-gray-500">
+                <div class="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm text-gray-500">
                     <div class="flex items-center space-x-2">
                         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse-slow"></div>
                         <span>Latest: v1.2.0</span>
@@ -110,19 +134,17 @@
         </div>
     </section>
 
-     <!-- Features Section -->
+
     <section id="features" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">Powerful Features</h2>
                 <p class="text-xl text-gray-600">Everything you need for bioinformatics research</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                     <div class="w-12 h-12 bg-genome-blue rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
+                        <i data-lucide="flask-conical" class="w-6 h-6 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Sequence Analysis</h3>
                     <p class="text-gray-600 mb-4">Comprehensive tools for DNA/RNA sequence manipulation including reverse complement, motif search, GC content calculation, and translation.</p>
@@ -133,12 +155,9 @@
                         <li>• Sequence translation</li>
                     </ul>
                 </div>
-
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                     <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
+                        <i data-lucide="file-text" class="w-6 h-6 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Data Parsing</h3>
                     <p class="text-gray-600 mb-4">Robust parsers for standard bioinformatics file formats with efficient memory usage and error handling.</p>
@@ -149,12 +168,9 @@
                         <li>• Memory-efficient streaming</li>
                     </ul>
                 </div>
-
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                     <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
+                        <i data-lucide="brain" class="w-6 h-6 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Machine Learning</h3>
                     <p class="text-gray-600 mb-4">Pre-built ML pipelines optimized for biological data analysis with feature extraction and model training.</p>
@@ -165,12 +181,9 @@
                         <li>• Cross-validation tools</li>
                     </ul>
                 </div>
-
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                     <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
+                        <i data-lucide="bar-chart" class="w-6 h-6 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Visualization</h3>
                     <p class="text-gray-600 mb-4">Publication-quality plots and charts specifically designed for genomic and biological data presentation.</p>
@@ -181,12 +194,9 @@
                         <li>• Interactive visualizations</li>
                     </ul>
                 </div>
-
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                     <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                        </svg>
+                        <i data-lucide="package" class="w-6 h-6 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Statistical Analysis</h3>
                     <p class="text-gray-600 mb-4">Comprehensive statistical tools for hypothesis testing, correlation analysis, and data exploration.</p>
@@ -197,13 +207,9 @@
                         <li>• Significance testing</li>
                     </ul>
                 </div>
-
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                     <div class="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
+                        <i data-lucide="settings" class="w-6 h-6 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Extensible API</h3>
                     <p class="text-gray-600 mb-4">User-friendly, modular design that allows easy extension and customization for specific research needs.</p>
@@ -218,7 +224,7 @@
         </div>
     </section>
 
-     <!-- Installation Section -->
+    
     <section id="installation" class="py-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -228,10 +234,9 @@
             <div class="bg-gray-900 rounded-xl p-8 text-white">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-gray-400">Terminal</span>
-                    <button onclick="navigator.clipboard.writeText('pip install genomehouse')" class="text-gray-400 hover:text-white transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
+                    <button onclick="copyToClipboard('pip install genomehouse', 'install-copy')" class="text-gray-400 hover:text-white transition-colors relative">
+                        <i data-lucide="copy" class="w-5 h-5"></i>
+                        <span id="install-copy-status" class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs bg-gray-700 text-white px-2 py-1 rounded hidden"></span>
                     </button>
                 </div>
                 <code class="text-lg">$ pip install genomehouse</code>
@@ -258,7 +263,7 @@
         </div>
     </section>
 
-     <!-- Examples Section -->
+    
     <section id="examples" class="py-20 bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -272,63 +277,52 @@
                     </div>
                     <div class="p-6">
                         <pre class="bg-gray-900 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>from genomehouse import sequence_tools
-
 # Calculate GC content
 seq = "ATGCGTACGGCTA"
 gc_content = sequence_tools.gc_content(seq)
 print(f"GC Content: {gc_content}%")
-
 # Get reverse complement
 rev_comp = sequence_tools.reverse_complement(seq)
 print(f"Reverse Complement: {rev_comp}")
-
 # Find motifs
 motifs = sequence_tools.find_motifs(seq, "GC")
 print(f"GC motifs found at: {motifs}")</code></pre>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-green-500 text-white px-6 py-4">
                         <h3 class="text-lg font-semibold">File Parsing</h3>
                     </div>
                     <div class="p-6">
                         <pre class="bg-gray-900 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>from genomehouse import genomic_parsers
-
 # Parse FASTA file
 for header, sequence in genomic_parsers.parse_fasta("data.fasta"):
     print(f">{header}")
     print(f"Length: {len(sequence)}")
     print(f"GC%: {sequence_tools.gc_content(sequence)}")
-
 # Parse FASTQ with quality scores
 for record in genomic_parsers.parse_fastq("reads.fastq"):
     print(f"ID: {record.id}")
     print(f"Quality: {record.quality_score}")</code></pre>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-purple-500 text-white px-6 py-4">
                         <h3 class="text-lg font-semibold">Machine Learning</h3>
                     </div>
                     <div class="p-6">
                         <pre class="bg-gray-900 text-white p-4 rounded-lg text-sm overflow-x-auto"><code>from genomehouse import ml_tools
-
 # Feature extraction from sequences
 sequences = ["ATGCGT", "GCATGC", "TGCATG"]
 features = ml_tools.extract_features(sequences)
-
 # Train classification model
 model = ml_tools.SequenceClassifier()
 model.fit(features, labels)
-
 # Predict new sequences
 predictions = model.predict(new_sequences)
 print(f"Predictions: {predictions}")</code></pre>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-red-500 text-white px-6 py-4">
                         <h3 class="text-lg font-semibold">CLI Usage</h3>
@@ -336,14 +330,11 @@ print(f"Predictions: {predictions}")</code></pre>
                     <div class="p-6">
                         <pre class="bg-gray-900 text-white p-4 rounded-lg text-sm overflow-x-auto"><code># Parse FASTA file
 $ genomehouse-cli parse-fasta data/sample.fasta
-
 # Calculate GC content
 $ genomehouse-cli gc-content ATGCGTAC
 GC Content: 50.0%
-
 # Convert FASTQ to FASTA
 $ genomehouse-cli convert reads.fastq output.fasta
-
 # Generate sequence statistics
 $ genomehouse-cli stats genome.fasta</code></pre>
                     </div>
@@ -352,36 +343,27 @@ $ genomehouse-cli stats genome.fasta</code></pre>
         </div>
     </section>
 
-     <!-- Documentation Section -->
     <section id="documentation" class="py-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl font-bold mb-8">Documentation & Resources</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <a href="#" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow group">
+                <a href="documentation.html" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow group">
                     <div class="w-16 h-16 bg-genome-blue rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
+                        <i data-lucide="file-text" class="w-8 h-8 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">API Documentation</h3>
                     <p class="text-gray-600">Complete API reference with examples and tutorials</p>
                 </a>
-
                 <a href="https://pypi.org/project/genomehouse/" target="_blank" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow group">
                     <div class="w-16 h-16 bg-yellow-500 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
+                        <i data-lucide="package" class="w-8 h-8 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">PyPI Package</h3>
                     <p class="text-gray-600">Official package repository with version history</p>
                 </a>
-
-                <a href="#" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow group">
+                <a href="https://github.com/GenomeHouse/GenomeHouse-1.1" target="_blank" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow group">
                     <div class="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
+                        <i data-lucide="github" class="w-8 h-8 text-white"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">GitHub Repository</h3>
                     <p class="text-gray-600">Source code, issues, and contribution guidelines</p>
@@ -390,7 +372,7 @@ $ genomehouse-cli stats genome.fasta</code></pre>
         </div>
     </section>
 
-    <!-- Footer -->
+
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
@@ -399,50 +381,45 @@ $ genomehouse-cli stats genome.fasta</code></pre>
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-8 w-8">
                         <span class="text-xl font-bold">GenomeHouse</span>
                     </div>
-                    <p class="text-gray-400 mb-4">
-                        Modular bioinformatics toolkit for sequence analysis, parsing, ML, and visualization.
-                    </p>
-                    <p class="text-sm text-gray-500">
-                        © 2024 GenomeHouse. Licensed under MIT License.
-                    </p>
+                    <p class="text-gray-400 mb-4"> Modular bioinformatics toolkit for sequence analysis, parsing, ML, and visualization. </p>
+                    <p class="text-sm text-gray-500"> © 2024 GenomeHouse. Licensed under <a href="http://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT License</a>. </p>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Resources</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Tutorials</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Examples</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">API Reference</a></li>
+                        <li><a href="documentation.html" class="hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="documentation.html#basic-analysis" class="hover:text-white transition-colors">Tutorials</a></li>
+                        <li><a href="#examples" class="hover:text-white transition-colors">Examples</a></li>
+                        <li><a href="documentation.html#sequence-tools" class="hover:text-white transition-colors">API Reference</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Community</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="https://pypi.org/project/genomehouse/" target="_blank" class="hover:text-white transition-colors">PyPI</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">GitHub</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Issues</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Discussions</a></li>
+                        <li><a href="https://github.com/GenomeHouse/GenomeHouse-1.1" target="_blank" class="hover:text-white transition-colors">GitHub</a></li>
+                        <li><a href="https://github.com/GenomeHouse/GenomeHouse-1.1/issues" target="_blank" class="hover:text-white transition-colors">Issues</a></li>
+                        <li><a href="https://github.com/GenomeHouse/GenomeHouse-1.1/discussions" target="_blank" class="hover:text-white transition-colors">Discussions</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>Built with ❤️ for the bioinformatics community by <a href="https://orcid.org/0009-0006-0222-7585" target="_blank" rel="noopener noreferrer" class="underline">Mubashir Ali</a> and <a href="https://orcid.org/0009-0006-0222-7585" target="_blank" rel="noopener noreferrer" class="underline">CelloByte Team</a>
-                </p>
+                <p>Built with ❤️ for the bioinformatics community by <a href="https://orcid.org/0009-0006-0222-7585" target="_blank" rel="noopener noreferrer" class="underline">Mubashir Ali</a> and <a href="https://orcid.org/0009-0006-0222-7585" target="_blank" rel="noopener noreferrer" class="underline">CelloByte Team</a> </p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
@@ -456,7 +433,45 @@ $ genomehouse-cli stats genome.fasta</code></pre>
                 nav.classList.remove('shadow-lg');
             }
         });
+
+        // Copy to clipboard function
+        function copyToClipboard(text, statusId) {
+            navigator.clipboard.writeText(text).then(function() {
+                const statusElement = document.getElementById(statusId + '-status');
+                if (statusElement) {
+                    statusElement.textContent = 'Copied!';
+                    statusElement.classList.remove('hidden');
+                    setTimeout(() => {
+                        statusElement.classList.add('hidden');
+                    }, 1000);
+                }
+            }, function(err) {
+                console.error('Failed to copy: ', err);
+                const statusElement = document.getElementById(statusId + '-status');
+                if (statusElement) {
+                    statusElement.textContent = 'Failed to copy';
+                    statusElement.classList.remove('hidden');
+                    setTimeout(() => {
+                        statusElement.classList.add('hidden');
+                    }, 1000);
+                }
+            });
+        }
+
+        // Mobile menu toggle function
+        function toggleMobileMenu(menuId, overlayId) {
+            const menu = document.getElementById(menuId);
+            const overlay = document.getElementById(overlayId);
+            if (menu && overlay) {
+                menu.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+                if (menu.classList.contains('-translate-x-full')) {
+                    document.body.style.overflow = 'auto';
+                } else {
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        }
     </script>
 </body>
-
 </html>
