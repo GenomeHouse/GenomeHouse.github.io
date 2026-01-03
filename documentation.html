@@ -3,297 +3,850 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenomeHouse Documentation - Bioinformatics Toolkit</title>
+    <title>GenomeHouse Documentation - Complete API Reference & Tutorials</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'genome-blue': '#2563eb',
+                        'genome-light': '#60a5fa',
+                        'genome-dark': '#1e40af',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        :root {
-            --background: #000000;
-            --foreground: #ffffff;
-            --muted: #888888;
-            --accent: #2563eb;
-            --border: #333333;
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
-            color: var(--foreground);
+        .code-block {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
         }
-
-        .grid-lines {
-            background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
-                              linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-            background-size: 40px 40px;
+        .sidebar-link.active {
+            background: #eff6ff;
+            color: #2563eb;
+            border-right: 3px solid #2563eb;
         }
-
-        .sidebar-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
-
-        .card-gradient {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-            border: 1px solid var(--border);
-        }
-
-        /* Mobile Menu Transitions */
-        #mobile-menu {
-            transition: transform 0.3s ease-in-out;
-        }
-        
-        .menu-open #mobile-menu {
-            transform: translateX(0);
-        }
-        
-        .menu-closed #mobile-menu {
-            transform: translateX(-100%);
-        }
-
-        /* Hide scrollbar for sidebar */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .code-container:hover .copy-button {
+            opacity: 1;
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Navbar -->
-    <header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-[#333]">
-        <div class="max-w-[1400px] mx-auto px-4 h-14 flex items-center justify-between">
-            <div class="flex items-center gap-8">
-                <a href="#" class="flex items-center gap-2">
-                    <img src="/images/genome-20house.png" alt="Logo" class="w-6 h-6 invert">
-                    <span class="font-bold text-lg tracking-tight">GENOMEHOUSE</span>
-                </a>
-                <nav class="hidden md:flex items-center gap-6 text-sm text-muted">
-                    <a href="#" class="hover:text-white transition-colors">Showcase</a>
-                    <a href="#" class="text-white">Docs</a>
-                    <a href="#" class="hover:text-white transition-colors">Blog</a>
-                    <a href="#" class="hover:text-white transition-colors">Templates</a>
-                </nav>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="relative hidden sm:block">
-                    <input type="text" placeholder="Search documentation..." class="bg-[#111] border border-[#333] rounded-md px-3 py-1.5 text-sm w-64 focus:outline-none focus:ring-1 focus:ring-accent">
-                    <span class="absolute right-2 top-2 text-[10px] text-muted border border-[#333] px-1 rounded">⌘K</span>
+<body class="bg-gray-50">
+    
+    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-8 w-8">
+                    <div>
+                        <span class="text-xl font-bold gradient-text">GenomeHouse</span>
+                        <span class="text-sm text-gray-500 ml-2">Documentation</span>
+                    </div>
                 </div>
-                <button class="bg-white text-black px-3 py-1.5 rounded-md text-sm font-medium hover:bg-gray-200 transition-colors">Deploy</button>
-                <button class="md:hidden text-white" onclick="toggleMenu()">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-600 hover:text-genome-blue transition-colors flex items-center space-x-1">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="https://pypi.org/project/genomehouse/" target="_blank" class="bg-genome-blue text-white px-4 py-2 rounded-lg hover:bg-genome-dark transition-colors flex items-center space-x-1">
+                        <i data-lucide="package" class="w-4 h-4"></i>
+                        <span>PyPI</span>
+                    </a>
+                    <a href="https://github.com/GenomeHouse/GenomeHouse-1.1" target="_blank" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center space-x-1">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="flex max-w-[1400px] mx-auto pt-14">
-        <!-- Desktop Sidebar -->
-        <aside class="hidden md:block w-64 fixed h-[calc(100vh-3.5rem)] overflow-y-auto border-r border-[#333] p-6 no-scrollbar">
-            <div class="space-y-8">
-                <div>
-                    <button class="flex items-center justify-between w-full text-sm font-medium mb-4 group">
-                        Getting Started
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-muted group-hover:text-white"></i>
-                    </button>
-                    <ul class="space-y-2 text-sm text-muted">
-                        <li><a href="#installation" class="hover:text-white block">Installation</a></li>
-                        <li><a href="#quick-start" class="hover:text-white block">Quick Start</a></li>
-                        <li><a href="#requirements" class="hover:text-white block">Requirements</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <button class="flex items-center justify-between w-full text-sm font-medium mb-4 group">
-                        API Reference
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-muted group-hover:text-white"></i>
-                    </button>
-                    <ul class="space-y-2 text-sm text-muted">
-                        <li><a href="#sequence-tools" class="hover:text-white block">sequence_tools</a></li>
-                        <li><a href="#genomic-parsers" class="hover:text-white block">genomic_parsers</a></li>
-                        <li><a href="#ml-tools" class="hover:text-white block">ml_tools</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <button class="flex items-center justify-between w-full text-sm font-medium mb-4 group">
-                        Resources
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-muted group-hover:text-white"></i>
-                    </button>
-                    <ul class="space-y-2 text-sm text-muted">
-                        <li><a href="#" class="hover:text-white block">GitHub</a></li>
-                        <li><a href="#" class="hover:text-white block">PyPI</a></li>
-                        <li><a href="#" class="hover:text-white block">Community</a></li>
-                    </ul>
+    <div class="flex max-w-7xl mx-auto">
+         
+        <nav class="w-64 bg-white shadow-sm h-screen sticky top-16 overflow-y-auto">
+            <div class="p-6">
+                <div class="space-y-1">
+<!--  Getting Started  -->
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="rocket" class="w-3 h-3 mr-2"></i>
+                            Getting Started
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#installation" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Installation</a></li>
+                            <li><a href="#quick-start" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Quick Start</a></li>
+                            <li><a href="#requirements" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Requirements</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="code" class="w-3 h-3 mr-2"></i>
+                            API Reference
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#sequence-tools" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">sequence_tools</a></li>
+                            <li><a href="#genomic-parsers" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">genomic_parsers</a></li>
+                            <li><a href="#ml-tools" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">ml_tools</a></li>
+                            <li><a href="#visualization" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">visualization</a></li>
+                            <li><a href="#statistics" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">statistics</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="terminal" class="w-3 h-3 mr-2"></i>
+                            CLI Reference
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#cli-overview" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Overview</a></li>
+                            <li><a href="#cli-commands" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Commands</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="book-open" class="w-3 h-3 mr-2"></i>
+                            Tutorials
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#basic-analysis" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Basic Analysis</a></li>
+                            <li><a href="#file-parsing" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">File Parsing</a></li>
+                            <li><a href="#machine-learning" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Machine Learning</a></li>
+                            <li><a href="#visualization-tutorial" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Visualization</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="settings" class="w-3 h-3 mr-2"></i>
+                            Advanced
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#custom-workflows" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Custom Workflows</a></li>
+                            <li><a href="#performance" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Performance</a></li>
+                            <li><a href="#troubleshooting" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Troubleshooting</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="users" class="w-3 h-3 mr-2"></i>
+                            Contributing
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#contributing" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Guidelines</a></li>
+                            <li><a href="#development" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Development</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </aside>
+        </nav>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-overlay" class="fixed inset-0 bg-black/60 z-[60] hidden" onclick="toggleMenu()"></div>
         
-        <!-- Mobile Sidebar -->
-        <aside id="mobile-menu" class="fixed left-0 top-0 bottom-0 w-[280px] bg-black border-r border-[#333] z-[70] p-6 transform -translateX-full transition-transform duration-300 md:hidden overflow-y-auto no-scrollbar">
-            <div class="flex justify-between items-center mb-8">
-                <span class="font-bold">GENOMEHOUSE</span>
-                <button onclick="toggleMenu()"><i data-lucide="x" class="w-6 h-6"></i></button>
-            </div>
-            <!-- Same menu content as above -->
-            <div class="space-y-8">
-                <!-- Content injected via JS or repeated here for simplicity -->
-                <div>
-                    <h4 class="text-sm font-medium mb-4">Getting Started</h4>
-                    <ul class="space-y-3 text-sm text-muted">
-                        <li><a href="#installation" onclick="toggleMenu()">Installation</a></li>
-                        <li><a href="#quick-start" onclick="toggleMenu()">Quick Start</a></li>
-                    </ul>
+        <main class="flex-1 p-8">
+          
+            <div class="mb-12">
+                <div class="flex items-center space-x-4 mb-4">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-16 w-16">
+                    <div>
+                        <h1 class="text-4xl font-bold gradient-text">GenomeHouse Documentation</h1>
+                        <p class="text-xl text-gray-600 mt-2">Complete guide to the modular bioinformatics toolkit</p>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start space-x-3">
+                    <i data-lucide="info" class="w-5 h-5 text-blue-600 mt-0.5"></i>
+                    <div>
+                        <p class="text-blue-800"><strong>Latest Version:</strong> 1.2.0</p>
+                        <p class="text-blue-700 text-sm mt-1">This documentation covers all features available in the latest release.</p>
+                    </div>
                 </div>
             </div>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 md:ml-64 px-6 py-12 lg:px-16 min-h-screen relative overflow-hidden">
-            <div class="grid-lines absolute inset-0 opacity-[0.03] pointer-events-none"></div>
             
-            <div class="relative z-10 max-w-4xl mx-auto">
-                <div class="mb-20 text-center md:text-left">
-                    <div class="inline-flex items-center gap-2 bg-[#111] border border-[#333] rounded-full px-3 py-1 mb-6 text-xs text-muted">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                        GenomeHouse v1.2.0 is now available
-                    </div>
-                    <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
-                        The Bioinformatics <br class="hidden md:block">Toolkit for Modern Science
-                    </h1>
-                    <p class="text-lg text-muted mb-10 max-w-2xl mx-auto md:mx-0 leading-relaxed">
-                        A modular, high-performance library built for genomic data analysis, parsing, and machine learning integration.
-                    </p>
-                    <div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-                        <a href="#installation" class="bg-white text-black px-8 py-3 rounded-md font-medium hover:bg-gray-200 transition-all w-full sm:w-auto text-center">Get Started</a>
-                        <div class="flex items-center gap-2 bg-[#111] border border-[#333] px-4 py-3 rounded-md font-mono text-sm text-muted w-full sm:w-auto">
-                            <span class="text-gray-500">$</span> pip install genomehouse
-                            <button onclick="copyToClipboard('pip install genomehouse')" class="ml-2 hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button>
+            <section id="installation" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="download" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">Installation</h2>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i data-lucide="package" class="w-5 h-5 mr-2 text-green-600"></i>
+                        Install from PyPI
+                    </h3>
+                    <div class="code-container relative">
+                        <div class="code-block">
+                            <code class="text-green-400">pip install genomehouse</code>
                         </div>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('pip install genomehouse')">
+                            <i data-lucide="copy" class="w-3 h-3"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Feature Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
-                    <div class="card-gradient rounded-xl p-8 hover:bg-white/[0.03] transition-colors">
-                        <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6">
-                            <i data-lucide="dna" class="w-6 h-6 text-blue-500"></i>
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i data-lucide="git-branch" class="w-5 h-5 mr-2 text-purple-600"></i>
+                        Install from Source
+                    </h3>
+                    <div class="code-container relative">
+                        <div class="code-block">
+                            <code class="text-green-400">git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git<br>
+cd GenomeHouse-1.1<br>
+pip install -e .</code>
                         </div>
-                        <h3 class="text-xl font-bold mb-3">Modular Analysis</h3>
-                        <p class="text-muted leading-relaxed">Specialized modules for sequence analysis, parsing, and statistics. Only use what you need.</p>
-                    </div>
-                    <div class="card-gradient rounded-xl p-8 hover:bg-white/[0.03] transition-colors">
-                        <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mb-6">
-                            <i data-lucide="zap" class="w-6 h-6 text-green-500"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">High Performance</h3>
-                        <p class="text-muted leading-relaxed">Built on top of NumPy and Pandas for lightning-fast processing of large genomic datasets.</p>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git\ncd GenomeHouse-1.1\npip install -e .')">
+                            <i data-lucide="copy" class="w-3 h-3"></i>
+                        </button>
                     </div>
                 </div>
+            </section>
 
-                <!-- Installation Section -->
-                <section id="installation" class="mb-20 pt-10">
-                    <h2 class="text-3xl font-bold mb-8">Installation</h2>
-                    <div class="space-y-6">
-                        <div class="bg-[#111] border border-[#333] rounded-lg overflow-hidden">
-                            <div class="flex items-center justify-between px-4 py-2 border-b border-[#333] bg-black/50">
-                                <span class="text-xs text-muted uppercase tracking-widest font-bold">Standard Install</span>
-                                <button onclick="copyToClipboard('pip install genomehouse')" class="text-muted hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button>
-                            </div>
-                            <div class="p-6 font-mono text-sm">
-                                <span class="text-blue-400">pip</span> install genomehouse
-                            </div>
-                        </div>
-                        <div class="bg-[#111] border border-[#333] rounded-lg overflow-hidden">
-                            <div class="flex items-center justify-between px-4 py-2 border-b border-[#333] bg-black/50">
-                                <span class="text-xs text-muted uppercase tracking-widest font-bold">Source Install</span>
-                                <button onclick="copyToClipboard('git clone https://github.com/GenomeHouse/GenomeHouse.git\ncd GenomeHouse\npip install -e .')" class="text-muted hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button>
-                            </div>
-                            <div class="p-6 font-mono text-sm leading-relaxed">
-                                <span class="text-gray-500"># Clone the repository</span><br>
-                                git clone https://github.com/GenomeHouse/GenomeHouse.git<br>
-                                <span class="text-gray-500"># Navigate and install</span><br>
-                                cd GenomeHouse<br>
-                                pip install -e .
-                            </div>
-                        </div>
+             
+            <section id="requirements" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">Requirements</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i data-lucide="python" class="w-5 h-5 mr-2 text-yellow-600"></i>
+                            Python Requirements
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Python ≥ 3.8</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>NumPy ≥ 1.19.0</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                <span>Pandas ≥ 1.3.0</span>
+                            </li>
+                        </ul>
                     </div>
-                </section>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i data-lucide="layers" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            Optional Dependencies
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="bar-chart" class="w-4 h-4 text-purple-600"></i>
+                                <span>Matplotlib (visualization)</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="brain" class="w-4 h-4 text-red-600"></i>
+                                <span>Scikit-learn (ML features)</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="trending-up" class="w-4 h-4 text-green-600"></i>
+                                <span>Seaborn (advanced plots)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-                <!-- Footer -->
-                <footer class="border-t border-[#333] pt-12 pb-20 text-center md:text-left">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                        <div>
-                            <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
-                                <img src="/images/genome-20house.png" alt="Logo" class="w-5 h-5 invert">
-                                <span class="font-bold">GENOMEHOUSE</span>
-                            </div>
-                            <p class="text-sm text-muted">Empowering bioinformaticians everywhere.</p>
-                        </div>
-                        <div class="flex gap-8 text-sm text-muted">
-                            <a href="#" class="hover:text-white">GitHub</a>
-                            <a href="#" class="hover:text-white">Twitter</a>
-                            <a href="#" class="hover:text-white">Discord</a>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </main>
         
-        <!-- Right TOC (Hidden on smaller screens) -->
-        <aside class="hidden lg:block w-64 fixed right-0 h-[calc(100vh-3.5rem)] p-8 no-scrollbar">
-            <h4 class="text-xs font-bold text-muted uppercase tracking-widest mb-6">On this page</h4>
-            <ul class="space-y-4 text-sm text-muted">
-                <li><a href="#installation" class="hover:text-white">Installation</a></li>
-                <li><a href="#quick-start" class="hover:text-white">Quick Start</a></li>
-                <li><a href="#requirements" class="hover:text-white">Requirements</a></li>
-                <li><a href="#sequence-tools" class="hover:text-white">Sequence Tools</a></li>
-            </ul>
-        </aside>
+            <section id="quick-start" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="zap" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">Quick Start</h2>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="code-container relative">
+                        <div class="code-block">
+                            <code class="text-blue-400"># Import GenomeHouse modules</code><br>
+                            <code class="text-yellow-400">from</code> <code class="text-green-400">genomehouse</code> <code class="text-yellow-400">import</code> <code class="text-white">sequence_tools, genomic_parsers</code><br><br>
+                            
+                            <code class="text-blue-400"># Basic sequence analysis</code><br>
+                            <code class="text-white">seq = </code><code class="text-green-400">"ATGCGTACGGCTA"</code><br>
+                            <code class="text-white">gc_content = sequence_tools.gc_content(seq)</code><br>
+                            <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"GC Content: {gc_content}%"</code><code class="text-white">)</code><br><br>
+                            
+                            <code class="text-blue-400"># Parse FASTA file</code><br>
+                            <code class="text-yellow-400">for</code> <code class="text-white">header, sequence </code><code class="text-yellow-400">in</code> <code class="text-white">genomic_parsers.parse_fasta(</code><code class="text-green-400">"example.fasta"</code><code class="text-white">):</code><br>
+                            <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(header, </code><code class="text-yellow-400">len</code><code class="text-white">(sequence))</code>
+                        </div>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('from genomehouse import sequence_tools, genomic_parsers\n\nseq = \"ATGCGTACGGCTA\"\ngc_content = sequence_tools.gc_content(seq)\nprint(f\"GC Content: {gc_content}%\")\n\nfor header, sequence in genomic_parsers.parse_fasta(\"example.fasta\"):\n    print(header, len(sequence))')">
+                            <i data-lucide="copy" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+      
+            <section id="sequence-tools" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="dna" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">sequence_tools Module</h2>
+                </div>
+                
+                <div class="space-y-6">
+                   
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="percent" class="w-5 h-5 mr-2 text-green-600"></i>
+                            gc_content(sequence)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Calculate the GC content percentage of a DNA sequence.</p>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-semibold mb-2 flex items-center">
+                                <i data-lucide="arrow-right" class="w-4 h-4 mr-1"></i>
+                                Parameters
+                            </h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li><code class="bg-gray-100 px-2 py-1 rounded">sequence</code> (str): DNA sequence string</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-semibold mb-2 flex items-center">
+                                <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
+                                Returns
+                            </h4>
+                            <p class="text-gray-600"><code class="bg-gray-100 px-2 py-1 rounded">float</code>: GC content as percentage</p>
+                        </div>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-white">sequence = </code><code class="text-green-400">"ATGCGCGCTA"</code><br>
+                                <code class="text-white">gc_percent = sequence_tools.gc_content(sequence)</code><br>
+                                <code class="text-blue-400"># Returns: 60.0</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGCGCGCTA\"\ngc_percent = sequence_tools.gc_content(sequence)')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="rotate-ccw" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            reverse_complement(sequence)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Generate the reverse complement of a DNA sequence.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-white">sequence = </code><code class="text-green-400">"ATGCGT"</code><br>
+                                <code class="text-white">rev_comp = sequence_tools.reverse_complement(sequence)</code><br>
+                                <code class="text-blue-400"># Returns: "ACGCAT"</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGCGT\"\nrev_comp = sequence_tools.reverse_complement(sequence)')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="search" class="w-5 h-5 mr-2 text-purple-600"></i>
+                            find_motifs(sequence, motif)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Find all occurrences of a motif pattern in a sequence.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-white">sequence = </code><code class="text-green-400">"ATGCGCGCTA"</code><br>
+                                <code class="text-white">motifs = sequence_tools.find_motifs(sequence, </code><code class="text-green-400">"GC"</code><code class="text-white">)</code><br>
+                                <code class="text-blue-400"># Returns: [2, 4, 6]</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGCGCGCTA\"\nmotifs = sequence_tools.find_motifs(sequence, \"GC\")')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                     
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="languages" class="w-5 h-5 mr-2 text-red-600"></i>
+                            translate(sequence, frame=0)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Translate DNA sequence to amino acid sequence.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-white">sequence = </code><code class="text-green-400">"ATGAAATAG"</code><br>
+                                <code class="text-white">protein = sequence_tools.translate(sequence)</code><br>
+                                <code class="text-blue-400"># Returns: "MK*"</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGAAATAG\"\nprotein = sequence_tools.translate(sequence)')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+         
+            <section id="genomic-parsers" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="file-text" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">genomic_parsers Module</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="file" class="w-5 h-5 mr-2 text-green-600"></i>
+                            parse_fasta(filename)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Parse FASTA files and yield header-sequence pairs.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-yellow-400">for</code> <code class="text-white">header, sequence </code><code class="text-yellow-400">in</code> <code class="text-white">genomic_parsers.parse_fasta(</code><code class="text-green-400">"sequences.fasta"</code><code class="text-white">):</code><br>
+                                <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f">{header}"</code><code class="text-white">)</code><br>
+                                <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Length: {len(sequence)}"</code><code class="text-white">)</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('for header, sequence in genomic_parsers.parse_fasta(\"sequences.fasta\"):\n    print(f\">{header}\")\n    print(f\"Length: {len(sequence)}\")')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="file-plus" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            parse_fastq(filename)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Parse FASTQ files with quality scores.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-yellow-400">for</code> <code class="text-white">record </code><code class="text-yellow-400">in</code> <code class="text-white">genomic_parsers.parse_fastq(</code><code class="text-green-400">"reads.fastq"</code><code class="text-white">):</code><br>
+                                <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"ID: {record.id}"</code><code class="text-white">)</code><br>
+                                <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Quality: {record.quality_score}"</code><code class="text-white">)</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('for record in genomic_parsers.parse_fastq(\"reads.fastq\"):\n    print(f\"ID: {record.id}\")\n    print(f\"Quality: {record.quality_score}\")')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                   
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="git-branch" class="w-5 h-5 mr-2 text-purple-600"></i>
+                            parse_vcf(filename)
+                        </h3>
+                        <p class="text-gray-600 mb-4">Parse VCF (Variant Call Format) files.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-yellow-400">for</code> <code class="text-white">variant </code><code class="text-yellow-400">in</code> <code class="text-white">genomic_parsers.parse_vcf(</code><code class="text-green-400">"variants.vcf"</code><code class="text-white">):</code><br>
+                                <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"{variant.chrom}:{variant.pos}"</code><code class="text-white">)</code><br>
+                                <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"{variant.ref} -> {variant.alt}"</code><code class="text-white">)</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('for variant in genomic_parsers.parse_vcf(\"variants.vcf\"):\n    print(f\"{variant.chrom}:{variant.pos}\")\n    print(f\"{variant.ref} -> {variant.alt}\")')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+          
+            <section id="ml-tools" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="brain" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">ml_tools Module</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="layers" class="w-5 h-5 mr-2 text-green-600"></i>
+                            extract_features(sequences, method='kmer')
+                        </h3>
+                        <p class="text-gray-600 mb-4">Extract numerical features from biological sequences.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-white">sequences = [</code><code class="text-green-400">"ATGCGT"</code><code class="text-white">, </code><code class="text-green-400">"GCATGC"</code><code class="text-white">, </code><code class="text-green-400">"TGCATG"</code><code class="text-white">]</code><br>
+                                <code class="text-white">features = ml_tools.extract_features(sequences, method=</code><code class="text-green-400">'kmer'</code><code class="text-white">)</code><br>
+                                <code class="text-blue-400"># Returns: numpy array of k-mer frequencies</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequences = [\"ATGCGT\", \"GCATGC\", \"TGCATG\"]\nfeatures = ml_tools.extract_features(sequences, method=\'kmer\')')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                   
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="target" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            SequenceClassifier()
+                        </h3>
+                        <p class="text-gray-600 mb-4">Machine learning classifier for biological sequences.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-blue-400"># Example usage</code><br>
+                                <code class="text-white">classifier = ml_tools.SequenceClassifier()</code><br>
+                                <code class="text-white">classifier.fit(features, labels)</code><br>
+                                <code class="text-white">predictions = classifier.predict(new_features)</code><br>
+                                <code class="text-white">accuracy = classifier.score(test_features, test_labels)</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('classifier = ml_tools.SequenceClassifier()\nclassifier.fit(features, labels)\npredictions = classifier.predict(new_features)\naccuracy = classifier.score(test_features, test_labels)')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section id="cli-overview" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="terminal" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">CLI Reference</h2>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <p class="text-gray-600 mb-4">GenomeHouse provides a command-line interface for common bioinformatics tasks.</p>
+                    
+                    <div class="code-container relative">
+                        <div class="code-block">
+                            <code class="text-green-400">genomehouse-cli --help</code>
+                        </div>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli --help')">
+                            <i data-lucide="copy" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="cli-commands" class="space-y-6">
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="file-text" class="w-5 h-5 mr-2 text-green-600"></i>
+                            parse-fasta
+                        </h3>
+                        <p class="text-gray-600 mb-4">Parse and analyze FASTA files from command line.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-green-400">genomehouse-cli parse-fasta data/sample.fasta</code><br>
+                                <code class="text-green-400">genomehouse-cli parse-fasta data/sample.fasta --stats</code><br>
+                                <code class="text-green-400">genomehouse-cli parse-fasta data/sample.fasta --output results.txt</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli parse-fasta data/sample.fasta\ngenomehouse-cli parse-fasta data/sample.fasta --stats\ngenomehouse-cli parse-fasta data/sample.fasta --output results.txt')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                   
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="percent" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            gc-content
+                        </h3>
+                        <p class="text-gray-600 mb-4">Calculate GC content for sequences.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-green-400">genomehouse-cli gc-content ATGCGTAC</code><br>
+                                <code class="text-white">GC Content: 50.0%</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli gc-content ATGCGTAC')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i data-lucide="refresh-cw" class="w-5 h-5 mr-2 text-purple-600"></i>
+                            convert
+                        </h3>
+                        <p class="text-gray-600 mb-4">Convert between different file formats.</p>
+                        
+                        <div class="code-container relative">
+                            <div class="code-block">
+                                <code class="text-green-400">genomehouse-cli convert reads.fastq output.fasta</code><br>
+                                <code class="text-green-400">genomehouse-cli convert --format fasta reads.fastq</code>
+                            </div>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli convert reads.fastq output.fasta\ngenomehouse-cli convert --format fasta reads.fastq')">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             
+            <section id="basic-analysis" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="book-open" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">Tutorials</h2>
+                </div>
+                
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i data-lucide="play-circle" class="w-5 h-5 mr-2 text-green-600"></i>
+                        Basic Sequence Analysis
+                    </h3>
+                    
+                    <div class="code-container relative">
+                        <div class="code-block">
+                            <code class="text-blue-400"># Complete sequence analysis workflow</code><br>
+                            <code class="text-yellow-400">from</code> <code class="text-green-400">genomehouse</code> <code class="text-yellow-400">import</code> <code class="text-white">sequence_tools</code><br><br>
+                            
+                            <code class="text-blue-400"># Define your sequence</code><br>
+                            <code class="text-white">dna_sequence = </code><code class="text-green-400">"ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA"</code><br><br>
+                            
+                            <code class="text-blue-400"># Basic analysis</code><br>
+                            <code class="text-white">gc_content = sequence_tools.gc_content(dna_sequence)</code><br>
+                            <code class="text-white">length = </code><code class="text-yellow-400">len</code><code class="text-white">(dna_sequence)</code><br>
+                            <code class="text-white">reverse_comp = sequence_tools.reverse_complement(dna_sequence)</code><br><br>
+                            
+                            <code class="text-blue-400"># Translation</code><br>
+                            <code class="text-white">protein = sequence_tools.translate(dna_sequence)</code><br><br>
+                            
+                            <code class="text-blue-400"># Find motifs</code><br>
+                            <code class="text-white">acc_motifs = sequence_tools.find_motifs(dna_sequence, </code><code class="text-green-400">"ACC"</code><code class="text-white">)</code><br><br>
+                            
+                            <code class="text-blue-400"># Print results</code><br>
+                            <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Sequence length: {length} bp"</code><code class="text-white">)</code><br>
+                            <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"GC content: {gc_content:.1f}%"</code><code class="text-white">)</code><br>
+                            <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Protein: {protein}"</code><code class="text-white">)</code><br>
+                            <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"ACC motifs at positions: {acc_motifs}"</code><code class="text-white">)</code>
+                        </div>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('from genomehouse import sequence_tools\n\ndna_sequence = \"ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA\"\n\ngc_content = sequence_tools.gc_content(dna_sequence)\nlength = len(dna_sequence)\nreverse_comp = sequence_tools.reverse_complement(dna_sequence)\n\nprotein = sequence_tools.translate(dna_sequence)\n\nacc_motifs = sequence_tools.find_motifs(dna_sequence, \"ACC\")\n\nprint(f\"Sequence length: {length} bp\")\nprint(f\"GC content: {gc_content:.1f}%\")\nprint(f\"Protein: {protein}\")\nprint(f\"ACC motifs at positions: {acc_motifs}\")')">
+                            <i data-lucide="copy" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section id="troubleshooting" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="help-circle" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">Troubleshooting</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <i data-lucide="alert-triangle" class="w-5 h-5 mr-2 text-yellow-600"></i>
+                            Common Issues
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-red-500 pl-4">
+                                <h4 class="font-semibold text-red-700">ImportError: No module named 'genomehouse'</h4>
+                                <p class="text-gray-600 mt-1">Make sure GenomeHouse is installed: <code class="bg-gray-100 px-2 py-1 rounded">pip install genomehouse</code></p>
+                            </div>
+                            
+                            <div class="border-l-4 border-yellow-500 pl-4">
+                                <h4 class="font-semibold text-yellow-700">FileNotFoundError when parsing files</h4>
+                                <p class="text-gray-600 mt-1">Check that the file path is correct and the file exists. Use absolute paths if needed.</p>
+                            </div>
+                            
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h4 class="font-semibold text-blue-700">Memory issues with large files</h4>
+                                <p class="text-gray-600 mt-1">GenomeHouse uses streaming parsers. For very large files, process in chunks or use the CLI tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section id="contributing" class="mb-12">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i data-lucide="users" class="w-6 h-6 text-genome-blue"></i>
+                    <h2 class="text-3xl font-bold">Contributing</h2>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <p class="text-gray-600 mb-6">We welcome contributions to GenomeHouse! Here's how you can help:</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3 flex items-center">
+                                <i data-lucide="git-pull-request" class="w-5 h-5 mr-2 text-green-600"></i>
+                                Development Setup
+                            </h3>
+                            <div class="code-container relative">
+                                <div class="code-block">
+                                    <code class="text-green-400">git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git</code><br>
+                                    <code class="text-green-400">cd GenomeHouse-1.1</code><br>
+                                    <code class="text-green-400">pip install -e .[dev]</code><br>
+                                    <code class="text-green-400">pytest tests/</code>
+                                </div>
+                                <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git\ncd GenomeHouse-1.1\npip install -e .[dev]\npytest tests/')">
+                                    <i data-lucide="copy" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3 flex items-center">
+                                <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Contribution Guidelines
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center space-x-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                    <span>Follow PEP 8 style guidelines</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                    <span>Add tests for new features</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                    <span>Update documentation</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                                    <span>Submit pull requests</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
+
+   
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-8 w-8">
+                    <span class="text-lg font-semibold">GenomeHouse Documentation</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://pypi.org/project/genomehouse/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="package" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://github.com/GenomeHouse/GenomeHouse-1.1" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-800 text-center text-gray-400">
+                <p>© 2024 GenomeHouse. Licensed under MIT License. Built with ❤️ for the bioinformatics community.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
 
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const overlay = document.getElementById('mobile-overlay');
-            const body = document.body;
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active link
+                    document.querySelectorAll('.sidebar-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show feedback
+                const button = event.target.closest('button');
+                const originalContent = button.innerHTML;
+                button.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i>';
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    lucide.createIcons();
+                }, 1000);
+            });
+        }
+
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.sidebar-link');
             
-            if (menu.classList.contains('-translate-x-full')) {
-                menu.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-                body.style.overflow = 'hidden';
-            } else {
-                menu.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-                body.style.overflow = 'auto';
-            }
-        }
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-        async function copyToClipboard(text) {
-            try {
-                await navigator.clipboard.writeText(text);
-                // Simple toast-like feedback could be added here
-            } catch (err) {
-                console.error('Failed to copy: ', err);
-            }
-        }
-
-        // Close mobile menu on resize if screen becomes desktop-sized
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                const menu = document.getElementById('mobile-menu');
-                const overlay = document.getElementById('mobile-overlay');
-                menu.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
