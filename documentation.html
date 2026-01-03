@@ -56,12 +56,27 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-3">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-8 w-8">
-                    <div>
-                        <span class="text-xl font-bold gradient-text">GenomeHouse</span>
-                        <span class="text-sm text-gray-500 ml-2">Documentation</span>
-                    </div>
+                        </div>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='from genomehouse import sequence_tools, genomic_parsers
+
+seq = "ATGCGTACGGCTA"
+gc_content = sequence_tools.gc_content(seq)
+print(f"GC Content: {gc_content}%")
+
+for header, sequence in genomic_parsers.parse_fasta("example.fasta"):
+    print(header, len(sequence))' onclick="copyToClipboard(this.dataset.copy)">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='for header, sequence in genomic_parsers.parse_fasta("sequences.fasta"):
+    print(f">{header}")
+    print(f"Length: {len(sequence)}")' onclick="copyToClipboard(this.dataset.copy)">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                            </button>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100" aria-label="Open menu">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
                     <a href="index.html" class="text-gray-600 hover:text-genome-blue transition-colors flex items-center space-x-1">
                         <i data-lucide="home" class="w-4 h-4"></i>
                         <span>Home</span>
@@ -79,9 +94,115 @@
         </div>
     </header>
 
-    <div class="flex max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row max-w-7xl mx-auto">
          
-        <nav class="w-64 bg-white shadow-sm h-screen sticky top-16 overflow-y-auto">
+        <!-- Mobile off-canvas nav and backdrop -->
+        <div id="mobile-nav-backdrop" class="fixed inset-0 bg-black bg-opacity-40 hidden z-40 md:hidden"></div>
+        <nav id="mobile-nav" class="fixed inset-y-0 left-0 w-64 bg-white shadow-sm z-50 transform -translate-x-full transition-transform md:hidden overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-6 w-6">
+                        </div>
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='from genomehouse import sequence_tools, genomic_parsers
+
+seq = "ATGCGTACGGCTA"
+gc_content = sequence_tools.gc_content(seq)
+print(f"GC Content: {gc_content}%")
+
+for header, sequence in genomic_parsers.parse_fasta("example.fasta"):
+    print(header, len(sequence))' onclick="copyToClipboard(this.dataset.copy)">
+                            <i data-lucide="copy" class="w-3 h-3"></i>
+                        </button>
+                    <button id="mobile-nav-close" class="p-2 rounded-md text-gray-600 hover:bg-gray-100" aria-label="Close menu">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="space-y-1">
+                <div class="space-y-1">
+<!--  Getting Started  -->
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="rocket" class="w-3 h-3 mr-2"></i>
+                            Getting Started
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#installation" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Installation</a></li>
+                            <li><a href="#quick-start" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Quick Start</a></li>
+                            <li><a href="#requirements" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Requirements</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="code" class="w-3 h-3 mr-2"></i>
+                            API Reference
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#sequence-tools" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">sequence_tools</a></li>
+                            <li><a href="#genomic-parsers" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">genomic_parsers</a></li>
+                            <li><a href="#ml-tools" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">ml_tools</a></li>
+                            <li><a href="#visualization" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">visualization</a></li>
+                            <li><a href="#statistics" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">statistics</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="terminal" class="w-3 h-3 mr-2"></i>
+                            CLI Reference
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#cli-overview" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Overview</a></li>
+                            <li><a href="#cli-commands" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Commands</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="book-open" class="w-3 h-3 mr-2"></i>
+                            Tutorials
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#basic-analysis" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Basic Analysis</a></li>
+                            <li><a href="#file-parsing" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">File Parsing</a></li>
+                            <li><a href="#machine-learning" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Machine Learning</a></li>
+                            <li><a href="#visualization-tutorial" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Visualization</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="settings" class="w-3 h-3 mr-2"></i>
+                            Advanced
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#custom-workflows" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Custom Workflows</a></li>
+                            <li><a href="#performance" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Performance</a></li>
+                            <li><a href="#troubleshooting" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Troubleshooting</a></li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="mb-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 flex items-center">
+                            <i data-lucide="users" class="w-3 h-3 mr-2"></i>
+                            Contributing
+                        </h3>
+                        <ul class="space-y-1">
+                            <li><a href="#contributing" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Guidelines</a></li>
+                            <li><a href="#development" class="sidebar-link block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">Development</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <nav class="hidden md:block w-64 bg-white shadow-sm h-screen sticky top-16 overflow-y-auto">
             <div class="p-6">
                 <div class="space-y-1">
 <!--  Getting Started  -->
@@ -166,7 +287,6 @@
             </div>
         </nav>
 
-        
         <main class="flex-1 p-8">
           
             <div class="mb-12">
@@ -202,7 +322,7 @@
                         <div class="code-block">
                             <code class="text-green-400">pip install genomehouse</code>
                         </div>
-                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('pip install genomehouse')">
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='pip install genomehouse' onclick="copyToClipboard(this.dataset.copy)">
                             <i data-lucide="copy" class="w-3 h-3"></i>
                         </button>
                     </div>
@@ -219,7 +339,9 @@
 cd GenomeHouse-1.1<br>
 pip install -e .</code>
                         </div>
-                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git\ncd GenomeHouse-1.1\npip install -e .')">
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git
+cd GenomeHouse-1.1
+pip install -e .' onclick="copyToClipboard(this.dataset.copy)">
                             <i data-lucide="copy" class="w-3 h-3"></i>
                         </button>
                     </div>
@@ -300,7 +422,7 @@ pip install -e .</code>
                             <code class="text-yellow-400">for</code> <code class="text-white">header, sequence </code><code class="text-yellow-400">in</code> <code class="text-white">genomic_parsers.parse_fasta(</code><code class="text-green-400">"example.fasta"</code><code class="text-white">):</code><br>
                             <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(header, </code><code class="text-yellow-400">len</code><code class="text-white">(sequence))</code>
                         </div>
-                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('from genomehouse import sequence_tools, genomic_parsers\n\nseq = \"ATGCGTACGGCTA\"\ngc_content = sequence_tools.gc_content(seq)\nprint(f\"GC Content: {gc_content}%\")\n\nfor header, sequence in genomic_parsers.parse_fasta(\"example.fasta\"):\n    print(header, len(sequence))')">
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                             <i data-lucide="copy" class="w-3 h-3"></i>
                         </button>
                     </div>
@@ -348,7 +470,8 @@ pip install -e .</code>
                                 <code class="text-white">gc_percent = sequence_tools.gc_content(sequence)</code><br>
                                 <code class="text-blue-400"># Returns: 60.0</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGCGCGCTA\"\ngc_percent = sequence_tools.gc_content(sequence)')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='sequence = "ATGCGCGCTA"
+gc_percent = sequence_tools.gc_content(sequence)' onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -368,7 +491,8 @@ pip install -e .</code>
                                 <code class="text-white">rev_comp = sequence_tools.reverse_complement(sequence)</code><br>
                                 <code class="text-blue-400"># Returns: "ACGCAT"</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGCGT\"\nrev_comp = sequence_tools.reverse_complement(sequence)')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='sequence = "ATGCGT"
+rev_comp = sequence_tools.reverse_complement(sequence)' onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -389,7 +513,8 @@ pip install -e .</code>
                                 <code class="text-white">motifs = sequence_tools.find_motifs(sequence, </code><code class="text-green-400">"GC"</code><code class="text-white">)</code><br>
                                 <code class="text-blue-400"># Returns: [2, 4, 6]</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGCGCGCTA\"\nmotifs = sequence_tools.find_motifs(sequence, \"GC\")')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='sequence = "ATGCGCGCTA"
+motifs = sequence_tools.find_motifs(sequence, "GC")' onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -410,7 +535,8 @@ pip install -e .</code>
                                 <code class="text-white">protein = sequence_tools.translate(sequence)</code><br>
                                 <code class="text-blue-400"># Returns: "MK*"</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequence = \"ATGAAATAG\"\nprotein = sequence_tools.translate(sequence)')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" data-copy='sequence = "ATGAAATAG"
+protein = sequence_tools.translate(sequence)' onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -441,7 +567,7 @@ pip install -e .</code>
                                 <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f">{header}"</code><code class="text-white">)</code><br>
                                 <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Length: {len(sequence)}"</code><code class="text-white">)</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('for header, sequence in genomic_parsers.parse_fasta(\"sequences.fasta\"):\n    print(f\">{header}\")\n    print(f\"Length: {len(sequence)}\")')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -462,7 +588,7 @@ pip install -e .</code>
                                 <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"ID: {record.id}"</code><code class="text-white">)</code><br>
                                 <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Quality: {record.quality_score}"</code><code class="text-white">)</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('for record in genomic_parsers.parse_fastq(\"reads.fastq\"):\n    print(f\"ID: {record.id}\")\n    print(f\"Quality: {record.quality_score}\")')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -483,7 +609,7 @@ pip install -e .</code>
                                 <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"{variant.chrom}:{variant.pos}"</code><code class="text-white">)</code><br>
                                 <code class="text-white">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"{variant.ref} -> {variant.alt}"</code><code class="text-white">)</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('for variant in genomic_parsers.parse_vcf(\"variants.vcf\"):\n    print(f\"{variant.chrom}:{variant.pos}\")\n    print(f\"{variant.ref} -> {variant.alt}\")')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -514,7 +640,7 @@ pip install -e .</code>
                                 <code class="text-white">features = ml_tools.extract_features(sequences, method=</code><code class="text-green-400">'kmer'</code><code class="text-white">)</code><br>
                                 <code class="text-blue-400"># Returns: numpy array of k-mer frequencies</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('sequences = [\"ATGCGT\", \"GCATGC\", \"TGCATG\"]\nfeatures = ml_tools.extract_features(sequences, method=\'kmer\')')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -536,7 +662,7 @@ pip install -e .</code>
                                 <code class="text-white">predictions = classifier.predict(new_features)</code><br>
                                 <code class="text-white">accuracy = classifier.score(test_features, test_labels)</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('classifier = ml_tools.SequenceClassifier()\nclassifier.fit(features, labels)\npredictions = classifier.predict(new_features)\naccuracy = classifier.score(test_features, test_labels)')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -558,7 +684,7 @@ pip install -e .</code>
                         <div class="code-block">
                             <code class="text-green-400">genomehouse-cli --help</code>
                         </div>
-                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli --help')">
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                             <i data-lucide="copy" class="w-3 h-3"></i>
                         </button>
                     </div>
@@ -579,7 +705,7 @@ pip install -e .</code>
                                 <code class="text-green-400">genomehouse-cli parse-fasta data/sample.fasta --stats</code><br>
                                 <code class="text-green-400">genomehouse-cli parse-fasta data/sample.fasta --output results.txt</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli parse-fasta data/sample.fasta\ngenomehouse-cli parse-fasta data/sample.fasta --stats\ngenomehouse-cli parse-fasta data/sample.fasta --output results.txt')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -598,7 +724,7 @@ pip install -e .</code>
                                 <code class="text-green-400">genomehouse-cli gc-content ATGCGTAC</code><br>
                                 <code class="text-white">GC Content: 50.0%</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli gc-content ATGCGTAC')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -617,7 +743,7 @@ pip install -e .</code>
                                 <code class="text-green-400">genomehouse-cli convert reads.fastq output.fasta</code><br>
                                 <code class="text-green-400">genomehouse-cli convert --format fasta reads.fastq</code>
                             </div>
-                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('genomehouse-cli convert reads.fastq output.fasta\ngenomehouse-cli convert --format fasta reads.fastq')">
+                            <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                 <i data-lucide="copy" class="w-3 h-3"></i>
                             </button>
                         </div>
@@ -664,7 +790,7 @@ pip install -e .</code>
                             <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"Protein: {protein}"</code><code class="text-white">)</code><br>
                             <code class="text-yellow-400">print</code><code class="text-white">(</code><code class="text-green-400">f"ACC motifs at positions: {acc_motifs}"</code><code class="text-white">)</code>
                         </div>
-                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('from genomehouse import sequence_tools\n\ndna_sequence = \"ATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGTAACGGTGCGGGCTGA\"\n\ngc_content = sequence_tools.gc_content(dna_sequence)\nlength = len(dna_sequence)\nreverse_comp = sequence_tools.reverse_complement(dna_sequence)\n\nprotein = sequence_tools.translate(dna_sequence)\n\nacc_motifs = sequence_tools.find_motifs(dna_sequence, \"ACC\")\n\nprint(f\"Sequence length: {length} bp\")\nprint(f\"GC content: {gc_content:.1f}%\")\nprint(f\"Protein: {protein}\")\nprint(f\"ACC motifs at positions: {acc_motifs}\")')">
+                        <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                             <i data-lucide="copy" class="w-3 h-3"></i>
                         </button>
                     </div>
@@ -728,7 +854,7 @@ pip install -e .</code>
                                     <code class="text-green-400">pip install -e .[dev]</code><br>
                                     <code class="text-green-400">pytest tests/</code>
                                 </div>
-                                <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard('git clone https://github.com/GenomeHouse/GenomeHouse-1.1.git\ncd GenomeHouse-1.1\npip install -e .[dev]\npytest tests/')">
+                                <button class="copy-button bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs" onclick="copyToClipboard(this.dataset.copy)">
                                     <i data-lucide="copy" class="w-3 h-3"></i>
                                 </button>
                             </div>
@@ -813,18 +939,29 @@ pip install -e .</code>
 
         // Copy to clipboard function
         function copyToClipboard(text) {
+            if (!text && typeof text !== 'string') return;
             navigator.clipboard.writeText(text).then(function() {
-                // Show feedback
-                const button = event.target.closest('button');
+                // Show feedback on the most likely button (activeElement fallback)
+                let button = null;
+                if (document.activeElement && document.activeElement.closest) {
+                    button = document.activeElement.closest('button');
+                }
+                if (!button) {
+                    // try any focused element's closest button
+                    const focused = document.querySelector(':focus');
+                    if (focused && focused.closest) button = focused.closest('button');
+                }
+                if (!button) return;
+
                 const originalContent = button.innerHTML;
                 button.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i>';
                 lucide.createIcons();
-                
+
                 setTimeout(() => {
                     button.innerHTML = originalContent;
                     lucide.createIcons();
                 }, 1000);
-            });
+            }).catch(() => {});
         }
 
         // Highlight active section on scroll
@@ -848,6 +985,60 @@ pip install -e .</code>
                 }
             });
         });
+    </script>
+    <script>
+        // Mobile nav toggles
+        (function(){
+            const mobileButton = document.getElementById('mobile-menu-button');
+            const mobileNav = document.getElementById('mobile-nav');
+            const backdrop = document.getElementById('mobile-nav-backdrop');
+            const closeBtn = document.getElementById('mobile-nav-close');
+
+            function openNav() {
+                if (!mobileNav) return;
+                mobileNav.classList.remove('-translate-x-full');
+                mobileNav.classList.add('translate-x-0');
+                if (backdrop) backdrop.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeNav() {
+                if (!mobileNav) return;
+                mobileNav.classList.add('-translate-x-full');
+                mobileNav.classList.remove('translate-x-0');
+                if (backdrop) backdrop.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            mobileButton && mobileButton.addEventListener('click', openNav);
+            closeBtn && closeBtn.addEventListener('click', closeNav);
+            backdrop && backdrop.addEventListener('click', closeNav);
+
+            // Close on ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeNav();
+            });
+
+            // Close mobile nav when a sidebar link is clicked
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeNav();
+                });
+            });
+        })();
+    </script>
+    <script>
+        // Populate data-copy for copy buttons from nearby code blocks
+        (function() {
+            document.querySelectorAll('.code-container').forEach(container => {
+                const codeBlock = container.querySelector('.code-block');
+                const button = container.querySelector('.copy-button');
+                if (button && codeBlock && !button.dataset.copy) {
+                    // Use the text content of the code-block; trim trailing newlines
+                    button.dataset.copy = codeBlock.innerText.replace(/\u00A0/g, ' ').trim();
+                }
+            });
+        })();
     </script>
 </body>
 </html>
