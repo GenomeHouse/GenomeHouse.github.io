@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+
+# Local environment files
+.env*
+!.env.example
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Deployment and editor files
+.vercel/
+.DS_Store

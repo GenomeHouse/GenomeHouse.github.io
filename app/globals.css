@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@theme {
+  --color-genome-blue: #2563eb;
+  --color-genome-light: #60a5fa;
+  --color-genome-dark: #1e40af;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.1) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+pre {
+  max-width: 100%;
+}
+
+main {
+  min-width: 0;
+}
+
+.code-block {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+section {
+  scroll-margin-top: 5rem;
+}
+
+@media (max-width: 767px) {
+  .hero-pattern {
+    background-size: 16px 16px;
+  }
+
+  .hero-pattern h1 {
+    font-size: clamp(2.5rem, 13vw, 4rem);
+    line-height: 1.1;
+  }
+
+  #features,
+  #installation,
+  #examples,
+  #documentation {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  #features h2,
+  #installation h2,
+  #examples h2,
+  #documentation h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  #features .grid,
+  #examples .grid,
+  #documentation .grid {
+    gap: 1.25rem;
+  }
+
+  #features .bg-white,
+  #examples .p-6,
+  #documentation .p-8 {
+    padding: 1.25rem;
+  }
+
+  #installation .bg-gray-900 {
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+
+  #installation code {
+    white-space: nowrap;
+  }
+
+  header .h-16 {
+    min-height: 4rem;
+    height: auto;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  header .flex.items-center.space-x-4 {
+    gap: 0.5rem;
+  }
+
+  header .flex.items-center.space-x-4 > a {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  header .flex.items-center.space-x-4 > a span {
+    display: none;
+  }
+
+  #mobile-nav {
+    width: min(20rem, 88vw);
+  }
+
+  main {
+    padding: 1.25rem;
+  }
+
+  main > div:first-child > .flex {
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  main > div:first-child img {
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+  }
+
+  main h1 {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  main h2 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  main h3 {
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+
+  main .bg-white.rounded-lg,
+  main .bg-white.rounded-xl {
+    padding: 1.25rem;
+  }
+
+  main .flex.items-center.space-x-3.mb-6 {
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  main .flex.items-center.space-x-3.mb-6 h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  footer .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  footer .col-span-2 {
+    grid-column: auto;
+  }
+
+  footer .flex.items-center.justify-between {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  footer p {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 420px) {
+  header .max-w-7xl,
+  main,
+  footer .max-w-7xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .code-block {
+    padding: 0.875rem;
+    font-size: 0.8125rem;
+  }
+}
