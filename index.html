@@ -38,10 +38,77 @@
             background-image: radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.1) 1px, transparent 0);
             background-size: 20px 20px;
         }
-        /* Responsive adjustments for navigation */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        img, pre {
+            max-width: 100%;
+        }
         @media (max-width: 767px) {
-            .md\:flex { display: none !important; }
-            .md\:hidden { display: flex !important; }
+            section {
+                scroll-margin-top: 4.5rem;
+            }
+            .hero-pattern {
+                background-size: 16px 16px;
+            }
+            .hero-pattern h1 {
+                font-size: clamp(2.5rem, 13vw, 4rem);
+                line-height: 1.1;
+            }
+            .hero-pattern .text-xl {
+                font-size: 1.125rem;
+            }
+            .hero-pattern .text-lg {
+                font-size: 1rem;
+            }
+            #features, #installation, #examples, #documentation {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            #features .text-center,
+            #installation .text-center,
+            #examples .text-center {
+                margin-bottom: 2.5rem;
+            }
+            #features h2, #installation h2, #examples h2, #documentation h2 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            #features .grid,
+            #examples .grid,
+            #documentation .grid {
+                gap: 1.25rem;
+            }
+            #features .bg-white {
+                padding: 1.5rem;
+            }
+            #installation .bg-gray-900 {
+                padding: 1.25rem;
+                overflow-x: auto;
+            }
+            #installation code {
+                white-space: nowrap;
+            }
+            #examples .p-6,
+            #documentation .p-8 {
+                padding: 1.25rem;
+            }
+            footer .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            footer .col-span-2 {
+                grid-column: auto;
+            }
+            footer p {
+                overflow-wrap: anywhere;
+            }
         }
     </style>
 </head>

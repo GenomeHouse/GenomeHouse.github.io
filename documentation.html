@@ -47,6 +47,120 @@
         .code-container:hover .copy-button {
             opacity: 1;
         }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        img {
+            max-width: 100%;
+        }
+        .code-block {
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        main {
+            min-width: 0;
+        }
+        section {
+            scroll-margin-top: 5rem;
+        }
+        @media (max-width: 767px) {
+            header .h-16 {
+                min-height: 4rem;
+                height: auto;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            header .flex.items-center.space-x-4 {
+                gap: 0.5rem;
+            }
+            header .flex.items-center.space-x-4 > a {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            header .flex.items-center.space-x-4 > a span {
+                display: none;
+            }
+            #mobile-nav {
+                width: min(20rem, 88vw);
+            }
+            main {
+                padding: 1.25rem;
+            }
+            main > div:first-child {
+                margin-bottom: 2.5rem;
+            }
+            main > div:first-child > .flex {
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            main > div:first-child img {
+                width: 3rem;
+                height: 3rem;
+                flex: 0 0 auto;
+            }
+            main h1 {
+                font-size: clamp(1.75rem, 8vw, 2.5rem);
+                line-height: 1.15;
+            }
+            main h2 {
+                font-size: 1.75rem;
+                line-height: 1.2;
+            }
+            main h3 {
+                font-size: 1.125rem;
+                line-height: 1.35;
+            }
+            main .bg-white.rounded-lg,
+            main .bg-white.rounded-xl {
+                padding: 1.25rem;
+            }
+            main .flex.items-center.space-x-3.mb-6 {
+                align-items: flex-start;
+                gap: 0.625rem;
+            }
+            main .flex.items-center.space-x-3.mb-6 h2 {
+                min-width: 0;
+                overflow-wrap: anywhere;
+            }
+            footer .flex.items-center.justify-between {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            footer .flex.space-x-6 {
+                gap: 1rem;
+            }
+            footer p {
+                overflow-wrap: anywhere;
+            }
+        }
+        @media (max-width: 420px) {
+            header .max-w-7xl,
+            main,
+            footer .max-w-7xl {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            header .flex.items-center.space-x-3 img {
+                width: 2rem;
+                height: 2rem;
+            }
+            main .bg-white.rounded-lg,
+            main .bg-white.rounded-xl {
+                padding: 1rem;
+            }
+            .code-block {
+                padding: 0.875rem;
+                font-size: 0.8125rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -287,12 +401,12 @@ for header, sequence in genomic_parsers.parse_fasta("example.fasta"):
             </div>
         </nav>
 
-        <main class="flex-1 p-8">
+        <main class="flex-1 min-w-0 p-8">
           
             <div class="mb-12">
-                <div class="flex items-center space-x-4 mb-4">
+                <div class="flex items-center space-x-4 mb-4 min-w-0">
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/GENOME%20HOUSE-EnyV4f2v3xsrc7ZSDeYftKH0sIc7vi.png" alt="GenomeHouse Logo" class="h-16 w-16">
-                    <div>
+                    <div class="min-w-0">
                         <h1 class="text-4xl font-bold gradient-text">GenomeHouse Documentation</h1>
                         <p class="text-xl text-gray-600 mt-2">Complete guide to the modular bioinformatics toolkit</p>
                     </div>
